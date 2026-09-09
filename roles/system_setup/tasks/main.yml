@@ -1,0 +1,35 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Set the hostname to mastersim
+  ansible.builtin.hostname:
+    name: optimus
+
+- name: Install Ansible (if not already installed)
+  ansible.builtin.dnf:
+    name: ansible
+    state: present
+    update_cache: true
+
+- name: Ensure curl is installed for CA download
+  ansible.builtin.dnf:
+    name: curl
+    state: present
+
+- name: Create directory for custom CA certificates
+  ansible.builtin.file:
+    path: /etc/pki/ca-trust/source/anchors/
+    state: directory
+    mode: '0755'
+
+- name: Download the root CA certificate
+  ansible.builtin.get_url:
+    url: https://ca.nf.lab/roots.pem
+    dest: /etc/pki/ca-trust/source/anchors/ca.crt
+    mode: '0644'
+    validate_certs: false
+
+- name: Update the system CA trust store
+  ansible.builtin.command:
+    cmd: update-ca-trust
+  changed_when: true

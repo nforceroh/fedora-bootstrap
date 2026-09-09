@@ -1,0 +1,46 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for fusion360
+
+- name: Ensure dependency are installed (Required for GUI dialogs)
+  ansible.builtin.dnf:
+    name:
+      - yad
+      - p7zip
+      - p7zip-plugins
+      - curl
+      - wget
+      - wine
+      - cabextract
+    state: present
+    disable_gpg_check: true
+
+- name: Set facts for installer details
+  ansible.builtin.set_fact:
+    installer_url: "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/raw/branch/main/files/setup/autodesk_fusion_installer_x86-64.sh"
+    installer_dest_path: "/tmp/autodesk_fusion_installer_x86-64.sh"
+    # A reliable path to check if installation is complete
+    installation_sentinel: "/usr/share/applications/fusion360.desktop"
+
+- name: Check if Fusion 360 is already installed
+  ansible.builtin.stat:
+    path: "{{ installation_sentinel }}"
+  register: fusion_app_status
+
+- name: Download the installer script
+  ansible.builtin.get_url:
+    url: "{{ installer_url }}"
+    dest: "{{ installer_dest_path }}"
+    mode: '0755' # Set executable permissions immediately
+    validate_certs: true # Best practice for production
+  when: not fusion_app_status.stat.exists
+
+- name: Execute the installation script with command line arguments
+  ansible.builtin.command:
+    cmd: "{{ installer_dest_path }} --install --default"
+    chdir: /tmp
+  # Only run the complex installation if the sentinel file doesn't exist
+  when: not fusion_app_status.stat.exists
+  # Use async/poll for long-running processes that might take > 30 mins
+  async: 1800
+  poll: 60

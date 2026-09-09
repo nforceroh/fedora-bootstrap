@@ -1,0 +1,43 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Enable the Star Citizen LUG Helper COPR repository
+  ansible.builtin.command:
+    cmd: dnf copr enable -y jackgreiner/lug-helper
+    creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:jackgreiner:lug-helper.repo
+  changed_when: true
+
+- name: Install the lug-helper package
+  ansible.builtin.dnf:
+    name: lug-helper
+    state: present
+    update_cache: true
+
+- name: Ensure necessary packages for gaming/Wine are present (from guide prerequisites)
+  ansible.builtin.dnf:
+    name:
+      - cabextract
+      - p7zip
+      - curl
+    state: present
+
+- name: Set vm.max_map_count kernel parameter for game stability (persistent fix)
+  ansible.builtin.sysctl:
+    name: vm.max_map_count
+    value: "16777216"
+    state: present
+    reload: true
+
+- name: Inform user about the next manual step
+  ansible.builtin.debug:
+    msg: |
+      Ansible setup for Star Citizen LUG helper is complete.
+      You must now manually run the helper script in your terminal to continue the installation:
+      /usr/bin/lug-helper
+      The script will guide you through installing Wine runners, Lutris, and the RSI Launcher via a GUI.
+
+- name: Run the interactive LUG Helper script with -i argument
+  ansible.builtin.shell:
+    cmd: /usr/bin/lug-helper -i
+  become: false
+

@@ -1,0 +1,13 @@
+# defaults file for mouse-profile
+
+target_user: "sylvain"
+home_dir: "/home/{{ target_user }}"
+script_path: "{{ home_dir }}/.local/bin/reset-mouse-profile.sh"
+wot_launcher_path: "{{ home_dir }}/.local/bin/wot-launcher.sh"
+profile_cache_path: "{{ home_dir }}/.cache/g502-profile"
+autostart_dir: "{{ home_dir }}/.config/autostart"
+desktop_file_path: "{{ autostart_dir }}/reset-mouse-profile.desktop"
+udev_rules_path: "/etc/udev/rules.d/99-g502-kvm.rules"
+mouse_profile: "0"
+powerplay_vendor_id: "046d"
+powerplay_product_id: "c53a"

@@ -1,0 +1,8 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for gaming
+
+# handlers file for gaming role
+- name: Update dnf cache
+  ansible.builtin.command: dnf5 makecache
+  
