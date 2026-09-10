@@ -54,8 +54,7 @@
     dest: "{{ udev_rules_path }}"
     mode: "0644"
     content: >-
-      ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="{{ powerplay_vendor_id }}",
-      ATTR{idProduct}=="{{ powerplay_product_id }}", RUN+="{{ script_path }}"
+      ACTION=="bind", SUBSYSTEM=="hid", ENV{HID_ID}=="{{ g502_hid_id }}", RUN+="{{ script_path }}"
   notify:
     - Reload udev rules
     - Trigger udev rules

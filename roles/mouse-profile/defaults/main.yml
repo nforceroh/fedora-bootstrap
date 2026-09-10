@@ -11,3 +11,6 @@ udev_rules_path: "/etc/udev/rules.d/99-g502-kvm.rules"
 mouse_profile: "0"
 powerplay_vendor_id: "046d"
 powerplay_product_id: "c53a"
+g502_hid_id: "0003:0000046D:0000407F"
+g502_discovery_attempts: 60
+g502_discovery_delay: 1

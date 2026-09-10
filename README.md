@@ -100,7 +100,7 @@ The mouse-profile role installs:
 - `/etc/udev/rules.d/99-g502-kvm.rules`
 - `~/.cache/g502-profile`
 
-The cache records the most recently selected profile. The login entry initializes desktop profile `0`. The PowerPlay udev event restores the cached profile after the KVM reconnects.
+The cache records the most recently selected profile. The login entry initializes desktop profile `0`. A udev bind event for the G502 HID device restores the cached profile after the KVM reconnects.
 
 Select the desktop profile manually:
 
@@ -137,6 +137,7 @@ home_dir: "/home/your-user"
 mouse_profile: "0"
 powerplay_vendor_id: "046d"
 powerplay_product_id: "c53a"
+g502_hid_id: "0003:0000046D:0000407F"
 ```
 
 For repeatable machine-specific settings, add variables to `group_vars/` or pass them with `-e` rather than modifying role defaults.
