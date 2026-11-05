@@ -1,0 +1,31 @@
+---
+# Shared variables for all Fedora hosts.
+# Override per-host in group_vars/<group>.yml, host_vars/<host>.yml,
+# or with -e on the command line.
+
+target_user: "sylvain"
+home_dir: "/home/{{ target_user }}"
+ca_cert_url: "https://ca.nf.lab/roots.pem"
+
+dev_packages:
+  - git
+  - gh
+  - fzf
+  - ripgrep
+  - jq
+  - btop
+  - tree
+  - zoxide
+  - fd-find
+  - ncdu
+  - unzip
+  - curl
+  - make
+  - gcc
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin

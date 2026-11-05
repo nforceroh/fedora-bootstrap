@@ -1,0 +1,6 @@
+---
+# Raider laptop
+hostname: "raider"
+
+enable_lug_helper: false
+enable_fusion360: true

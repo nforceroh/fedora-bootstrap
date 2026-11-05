@@ -1,12 +1,15 @@
 - name: Provision Fedora Workstation
-  hosts: localhost
-  connection: local
+  hosts: fedora
   become: true
   roles:
-#    - role: system_setup
-#    - role: vscode
-#    - role: lug-helper
-#    - role: fusion360
-    - role: mouse-profile
+    - role: system_setup
+    - role: dev_tools
+    - role: docker
+    - role: tabby
+    - role: vscode
+    - role: lug-helper
+      when: enable_lug_helper | default(false)
+    - role: fusion360
+      when: enable_fusion360 | default(false)
 
 

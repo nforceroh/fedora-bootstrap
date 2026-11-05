@@ -1,0 +1,6 @@
+---
+- name: Install dev tools
+  ansible.builtin.dnf:
+    name: "{{ dev_packages }}"
+    state: present
+    update_cache: true

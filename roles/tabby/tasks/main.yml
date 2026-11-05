@@ -1,0 +1,21 @@
+---
+- name: Add Tabby repo
+  ansible.builtin.get_url:
+    url: https://packagecloud.io/eugeny/tabby/gpgkey
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-tabby
+    mode: "0644"
+
+- name: Configure Tabby repo
+  ansible.builtin.yum_repository:
+    name: tabby
+    description: Tabby Terminal
+    baseurl: https://packagecloud.io/eugeny/tabby/rpm/fedora/$releasever/$basearch
+    gpgcheck: true
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-tabby
+    enabled: true
+
+- name: Install Tabby
+  ansible.builtin.dnf:
+    name: tabby
+    state: present
+    update_cache: true

@@ -1,0 +1,3 @@
+---
+# Per-host overrides for optimus.
+# Add machine-specific tweaks here (e.g. monitor layout, GPU, USB).

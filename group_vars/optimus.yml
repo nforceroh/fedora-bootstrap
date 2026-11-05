@@ -1,0 +1,6 @@
+---
+# Optimus desktop (ASUS TUF GAMING X670E-PLUS WIFI, Fedora 45, KDE Plasma)
+hostname: "optimus"
+
+enable_lug_helper: true
+enable_fusion360: true

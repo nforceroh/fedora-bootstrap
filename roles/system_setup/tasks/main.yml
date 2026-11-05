@@ -1,9 +1,9 @@
 #SPDX-License-Identifier: MIT-0
 ---
 
-- name: Set the hostname to mastersim
+- name: Set the hostname
   ansible.builtin.hostname:
-    name: optimus
+    name: "{{ hostname }}"
 
 - name: Install Ansible (if not already installed)
   ansible.builtin.dnf:
@@ -24,7 +24,7 @@
 
 - name: Download the root CA certificate
   ansible.builtin.get_url:
-    url: https://ca.nf.lab/roots.pem
+    url: "{{ ca_cert_url }}"
     dest: /etc/pki/ca-trust/source/anchors/ca.crt
     mode: '0644'
     validate_certs: false
