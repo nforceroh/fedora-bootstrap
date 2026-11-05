@@ -6,7 +6,7 @@ Ansible playbook for provisioning a Fedora Workstation. Supports multiple machin
 
 This playbook targets `localhost` with an inventory that defines two host groups:
 - `[optimus]` — the ASUS TUF GAMING X670E-PLUS WIFI desktop (KDE Plasma)
-- `[raider]` — a laptop (dev-only roles, no G502 mouse profile)
+- `[raider]` — a laptop
 
 Run on each machine with:
 ```bash
